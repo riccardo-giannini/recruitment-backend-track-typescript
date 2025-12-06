@@ -1,0 +1,4 @@
+# Caddyfile
+multilavoro.localhost {
+    reverse_proxy backend:3000
+}
