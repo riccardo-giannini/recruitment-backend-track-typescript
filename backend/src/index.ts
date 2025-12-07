@@ -1,17 +1,29 @@
+// src/index.ts
+import "dotenv/config";
 import Fastify from "fastify";
+import prismaPlugin from "./plugins/prisma.js";
 
-const fastify = Fastify({
-  logger: true,
-});
+const start = async () => {
+  const fastify = Fastify({ logger: true });
 
-fastify.get("/ping", async (request, reply) => {
-  return "pong\n";
-});
+  try {
+    await fastify.register(prismaPlugin);
 
-fastify.listen({ port: 3000, host: "0.0.0.0" }, (err, address) => {
-  if (err) {
+    fastify.get("/users", async () => {
+      const users = await fastify.prisma.user.findMany();
+      return users;
+    });
+
+    fastify.get("/ping", async () => {
+      return "pong\n";
+    });
+
+    await fastify.listen({ port: 3000, host: "0.0.0.0" });
+    console.log("Server listening on http://0.0.0.0:3000");
+  } catch (err) {
     fastify.log.error(err);
     process.exit(1);
   }
-  fastify.log.info(`Server listening at ${address}`);
-});
+};
+
+start();

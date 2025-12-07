@@ -1,25 +1,26 @@
 {
+  "extends": "@tsconfig/node24/tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "target": "es2022",
-    "lib": ["es2022"], // or let @tsconfig/node24 set it if you remove target override
-    "types": ["node"], // 👈 Add this if using Node.js globals
+    "strict": true,
+    "esModuleInterop": false, // 👈 disable (you're using verbatimModuleSyntax)
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "strict": true,
-    "jsx": "react-jsx",
+    "types": ["node"],
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
+    "skipLibCheck": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "lib": ["ES2022"],
     "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": false // 👈 Consider disabling for libraries
+    "moduleDetection": "force"
   },
   "include": ["src"],
-  "extends": "@tsconfig/node24/tsconfig.json"
+  "exclude": ["node_modules", "dist"]
 }
