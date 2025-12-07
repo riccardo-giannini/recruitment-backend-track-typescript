@@ -1,15 +1,17 @@
-import fastify from 'fastify'
+import Fastify from 'fastify'
 
-const server = fastify()
+const fastify = Fastify({
+  logger:true
+});
 
-server.get('/ping', async (request, reply) => {
+fastify.get('/ping', async (request, reply) => {
   return 'pong\n'
 })
 
-server.listen({ port: 3000, host:'0.0.0.0' }, (err, address) => {
+fastify.listen({ port: 3000, host:'0.0.0.0' }, (err, address) => {
   if (err) {
-    console.error(err)
+    fastify.log.error(err)
     process.exit(1)
   }
-  console.log(`Server listening at ${address}`)
+  fastify.log.info(`Server listening at ${address}`)
 })

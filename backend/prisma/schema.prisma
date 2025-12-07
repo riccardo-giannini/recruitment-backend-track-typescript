@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client"
+  output   = "generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int          @id @default(autoincrement())
+  email     String       @unique
+  password  String
+  firstName String?      @map("first_name")
+  lastName  String?      @map("last_name")
+  createdAt DateTime     @default(now()) @map("created_at")
+  updatedAt DateTime     @default(now()) @map("updated_at")
+
+  taxProfiles TaxProfile[]
+
+  @@map("users")
+}
+
+model TaxProfile {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  legalName      String   @map("legal_name")
+  isBusiness     Boolean  @map("is_business")
+  country        String   @db.Char(2)
+  stateProvince  String?  @map("state_province") @db.VarChar(10)
+  taxIdType      String?  @map("tax_id_type") @db.VarChar(20)
+  taxIdNumber    String?  @map("tax_id_number") @db.VarChar(50)
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  invoices      Invoice[]
+
+  @@map("tax_profiles")
+}
+
+model Invoice {
+  id             BigInt    @id @default(autoincrement())
+  invoiceNumber  String    @unique @map("invoice_number")
+  taxProfileId   Int
+  currency       String    @default("EUR") @db.Char(3)
+  subtotal       Decimal
+  taxAmount      Decimal   @default(0.00)
+  total          Decimal
+  status         InvoiceStatus @default(DRAFT)
+  issuedAt       DateTime? @map("issued_at")
+  dueAt          DateTime? @map("due_at")
+  paidAt         DateTime? @map("paidAt")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @default(now()) @map("updated_at")
+
+  taxProfile     TaxProfile @relation(fields: [taxProfileId], references: [id], onDelete: Cascade)
+
+  @@map("invoices")
+}
+
+enum InvoiceStatus {
+  DRAFT
+  ISSUED
+  PAID
+  OVERDUE
+  CANCELLED
+  REFUNDED
+}
