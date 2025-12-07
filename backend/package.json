@@ -6,7 +6,10 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts"
+    "dev": "ts-node src/index.ts",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -20,11 +23,15 @@
     "pg": "^8.16.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
     "@tsconfig/node24": "^24.0.3",
     "@types/node": "^24.10.1",
     "@types/pg": "^8.15.6",
+    "eslint": "^9.39.1",
+    "prettier": "3.7.4",
     "prisma": "^7.1.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.1"
   }
 }

@@ -1,17 +1,17 @@
-import Fastify from 'fastify'
+import Fastify from "fastify";
 
 const fastify = Fastify({
-  logger:true
+  logger: true,
 });
 
-fastify.get('/ping', async (request, reply) => {
-  return 'pong\n'
-})
+fastify.get("/ping", async (request, reply) => {
+  return "pong\n";
+});
 
-fastify.listen({ port: 3000, host:'0.0.0.0' }, (err, address) => {
+fastify.listen({ port: 3000, host: "0.0.0.0" }, (err, address) => {
   if (err) {
-    fastify.log.error(err)
-    process.exit(1)
+    fastify.log.error(err);
+    process.exit(1);
   }
-  fastify.log.info(`Server listening at ${address}`)
-})
+  fastify.log.info(`Server listening at ${address}`);
+});

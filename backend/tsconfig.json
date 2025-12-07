@@ -18,7 +18,7 @@
     "exactOptionalPropertyTypes": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": false, // 👈 Consider disabling for libraries
+    "skipLibCheck": false // 👈 Consider disabling for libraries
   },
   "include": ["src"],
   "extends": "@tsconfig/node24/tsconfig.json"
