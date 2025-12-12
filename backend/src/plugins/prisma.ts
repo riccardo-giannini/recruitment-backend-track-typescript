@@ -1,10 +1,7 @@
 // src/plugins/prisma.ts
-import type { FastifyInstance, FastifyPluginAsync } from "fastify";
-
-// ✅ Runtime import via default export
-import {PrismaClient} from "@prisma/client";
+import { PrismaClient } from "../prisma/generated/prisma/client.js";
 import { PrismaPg } from "@prisma/adapter-pg";
-
+import type { FastifyInstance, FastifyPluginAsync } from "fastify";
 import "dotenv/config";
 
 declare module "fastify" {
@@ -18,11 +15,11 @@ const prismaPlugin: FastifyPluginAsync = async (app: FastifyInstance) => {
     throw new Error("DATABASE_URL is required");
   }
 
-const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL,
-});
-const prisma = new PrismaClient({ adapter });
+  const adapter = new PrismaPg({
+    connectionString: process.env.DATABASE_URL,
+  });
 
+  const prisma = new PrismaClient({ adapter });
   app.decorate("prisma", prisma);
 
   app.addHook("onClose", async () => {

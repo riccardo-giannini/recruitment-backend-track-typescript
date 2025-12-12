@@ -1,4 +1,4 @@
 node_modules
 dist
-/prisma/generated/prisma
+src/prisma/generated
 .env

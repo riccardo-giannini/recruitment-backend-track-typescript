@@ -4,22 +4,21 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,
-    "esModuleInterop": false, // 👈 disable (you're using verbatimModuleSyntax)
+    "esModuleInterop": true, // ✅ REQUIRED by Prisma
+    "verbatimModuleSyntax": false, // ✅ Must be false
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
     "types": ["node"],
-    "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "skipLibCheck": false,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext", // or "NodeNext" (both work, but docs use "ESNext")
+    "moduleResolution": "node", // or "NodeNext"
     "target": "ES2022",
     "lib": ["ES2022"],
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force"
+    "noUncheckedSideEffectImports": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
